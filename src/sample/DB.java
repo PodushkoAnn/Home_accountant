@@ -1,19 +1,16 @@
 package sample;
 
-import sample.money_sources.Cash;
-import sample.money_sources.CreditCard;
-import sample.money_sources.DebitCard;
-import sample.money_sources.Source;
+import sample.money_sources.*;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DB {
 
     private static Connection connection;
     private static Statement stmt;
     private static PreparedStatement pstmt;
+
 
     public static void connect() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
@@ -26,54 +23,67 @@ public class DB {
     }
 
     public static boolean connected() {
-//        System.out.println(connection != null);
         return (connection != null);
     }
 
-    public static void addMoney(){
+    public static ArrayList<String> getSourceNames(){
+        String req = "Select name from source";
+        return getList(req);
+    }
 
+    public static ArrayList<String> getCategories() {
+        String req = "Select name from category";
+        return getList(req);
+    }
+
+    private static ArrayList<String> getList(String request){
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            ResultSet result = stmt.executeQuery(request);
+            while(result.next()){
+                list.add(result.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static String getCurrency(String name){
+
+        String req = String.format("Select currency from source where name = '%s'", name);
+
+        try {
+            ResultSet result = stmt.executeQuery(req);
+            if(result.next()){
+                return stmt.executeQuery(String.format("Select name from currency where id = '%d'",
+                        result.getInt(1))).getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void addMoney(float amount, Source source){
+        System.out.println("Добавили денег " + amount + " на " + source.getName());
+    }
+
+    public static void spendMoney(float amount, Source source){
+        System.out.println("Сняли денег " + amount + " c " + source.getName());
+    }
+
+    public static void addMoney(float amount){
+        System.out.println("Добавили денег " + amount);
     }
 
     public static void spendMoney(float amount){
-        //прописать метод
-    }
-
-    public static ArrayList<String> getCategories(){
-        ArrayList<String> s = new ArrayList<>();
-        s.add("дом");
-        s.add("дорога");
-        s.add("ребенок");
-        s.add("продукты");
-        return s;
+        System.out.println("Сняли денег " + amount);
     }
 
 
 
-    public static ArrayList<Source> getSources(){
-        float cash = 50000f;
-        float debitCard = 70000f;
-        float creditCard = 120000f;
-        ArrayList<Source> s = new ArrayList<>();
-        s.add(new Cash("наличные", cash));
-        s.add(new DebitCard("дебетовая карта", debitCard));
-        s.add(new CreditCard("кредитная карта", creditCard));
-        return s;
-    }
 
-    public static ArrayList<String> getSourcesNames(ArrayList<Source> sources){
-        ArrayList<String> str = new ArrayList<>();
-        for(Source s: sources){
-            str.add(s.getName());
-        }
-        return str;
-    }
 
-    public static List<String> getCurrencies(){
-        List<String> s = new ArrayList<>();
-        s.add("RUB");
-        s.add("EUR");
-        s.add("USD");
-//        System.out.println(s.toString());
-        return s;
-    }
+
 }

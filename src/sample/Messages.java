@@ -4,10 +4,10 @@ import javafx.scene.control.Alert;
 
 public class Messages {
 
-    Alert alert;
+    private static Alert alert;
 
     public static void showAlert(int i){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert = new Alert(Alert.AlertType.INFORMATION);
         switch(i){
             case 0:
                 alert.setTitle("Не выбрана категория расходов");
@@ -29,7 +29,16 @@ public class Messages {
                 alert.setContentText("Перезапустите приложение, при повторении обратитесь к разработчику");
                 alert.showAndWait();
                 break;
-
+            case 4:
+                alert.setTitle("Не выбран источник");
+                alert.setContentText("Выберите карту / счет для зачисления");
+                alert.showAndWait();
+                break;
+            case 5:
+                alert.setTitle("Нулевая сумма");
+                alert.setContentText("Введите сумму");
+                alert.showAndWait();
+                break;
         }
     }
 }

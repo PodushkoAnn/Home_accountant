@@ -4,9 +4,12 @@ import java.util.Date;
 
 public class DebitCard extends Source {
 
-    Date expire;
+    Date expired;
 
-    public DebitCard(String name, float amount) {
-        super(name, amount);
+    public DebitCard(String name) {
+        super();
+        this.name = name;
+        type = "дебетовая карта";
+        this.currency = "RUB";
     }
 }

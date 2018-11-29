@@ -2,8 +2,7 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.stage.Stage;
 import java.sql.SQLException;
 import static sample.Messages.showAlert;
@@ -14,13 +13,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/sample.fxml"));
-
-        ps = primaryStage;
-        ps.setTitle("Home accountant");
-
-        ps.setScene(new Scene(root, 550, 350));
-        ps.show();
 
         try{
             DB.connect();
@@ -32,6 +24,14 @@ public class Main extends Application {
             e.printStackTrace();
             showAlert(3);
         }
+
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/sample.fxml"));
+
+        ps = primaryStage;
+        ps.setTitle("Home accountant");
+
+        ps.setScene(new Scene(root, 550, 350));
+        ps.show();
 
         ps.setOnCloseRequest(e -> {
             if(DB.connected()) {
@@ -50,8 +50,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-
 
 }
 

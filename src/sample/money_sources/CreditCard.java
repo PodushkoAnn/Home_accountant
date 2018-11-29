@@ -4,10 +4,13 @@ import java.util.Date;
 
 public class CreditCard extends Source {
 
-    Date expire;
+    float overrun;
+    Date expired;
 
-    public CreditCard(String name, float amount) {
-        super(name, amount);
+    public CreditCard(String name) {
+        super();
+        this.name = name;
+        type = "кредитная карта";
     }
 
 }

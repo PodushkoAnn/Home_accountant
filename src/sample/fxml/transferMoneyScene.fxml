@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controllers.TransferMoneyController">
+
+    <VBox prefWidth="400" prefHeight="300" alignment="TOP_CENTER">
+
+        <ComboBox fx:id="from" promptText="Выберите счет списания" />
+        <ComboBox fx:id="to" promptText="Выберите счет зачисления" />
+
+        <TextField fx:id="sum" promptText="Введите сумму"  />
+
+        <HBox alignment="BASELINE_CENTER">
+            <Button fx:id="okButton" text="OK" onAction="#transferMoney"/>
+            <Button fx:id="cancelButton" text="Cancel" onAction="#returnToMain"/>
+        </HBox>
+
+    </VBox>
+
+</AnchorPane>

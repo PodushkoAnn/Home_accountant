@@ -1,16 +1,9 @@
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TextField?>
 
-<GridPane fx:controller="sample.controllers.MainController" xmlns:fx="http://javafx.com/fxml" gridLinesVisible="false">
+<GridPane fx:controller="sample.controllers.MainController" fx:id="gp" xmlns:fx="http://javafx.com/fxml" gridLinesVisible="false">
     <padding><Insets top="15" right="15" bottom="20" left="15"/></padding>
     <children>
     <VBox GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" spacing="10" >
@@ -21,22 +14,31 @@
 
         <Label alignment="TOP_LEFT" text="Потратить"/>
         <HBox GridPane.hgrow="ALWAYS" spacing="10">
-            <TextField fx:id="sum" promptText="введите сумму"/>
-            <Label fx:id="currency" />
-            <ComboBox fx:id="source" promptText="наличные"/>
-            <ComboBox fx:id="category" promptText="категория"/>
-            <Button fx:id="bt" onAction="#onClickMethod" text="OK"/>
+            <TextField fx:id="sum" promptText="введите сумму" prefWidth="100" />
+            <ComboBox fx:id="source" promptText="счет списания" onAction="#viewChoise"/>
+            <Label fx:id="curr" visible="false" prefWidth="50"  />
+            <ComboBox fx:id="category" promptText="категория" prefWidth="150" />
+            <Button fx:id="bt" onAction="#spendMoney" text="OK"/>
         </HBox>
         <TableView fx:id="currentBalance" prefHeight="150" GridPane.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="moneySource" prefWidth="150" sortable="false" text="source: "/>
-                <TableColumn fx:id="amount" prefWidth="250" sortable="false" text="amount "/>
+                <TableColumn fx:id="moneySource" prefWidth="200" sortable="false" text="source: "/>
+                <TableColumn fx:id="amount" prefWidth="100" sortable="false" text="amount "/>
+                <TableColumn fx:id="type" prefWidth="150" sortable="false" text="type: "/>
+                <TableColumn fx:id="currency"  sortable="false" text="currency "/>
             </columns>
         </TableView>
-        <HBox>
-            <ComboBox fx:id="menu" promptText="МЕНЮ" onAction="#handleMenu"/>
-            <!--<Button fx:id="bt2" text="OK" />-->
-        </HBox>
+
+        <MenuButton fx:id="mb" text="Меню" >
+            <items>
+                <MenuItem text="Пополнить баланс" onAction="#handleMenu"/>
+                <MenuItem text="Добавить карту" onAction="#handleMenu" />
+                <MenuItem text="Перевести между счетами" onAction="#handleMenu" />
+                <MenuItem text="Добавить категорию расходов" onAction="#handleMenu" />
+            </items>
+        </MenuButton>
     </VBox>
     </children>
 </GridPane>
+
+        <!---->

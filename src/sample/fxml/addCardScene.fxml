@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.CheckBoxListCell?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controllers.AddCardController">
+
+    <VBox>
+        <TextField fx:id="cardName" promptText="Введите имя" />
+
+        <fx:define>
+            <ToggleGroup fx:id="group" />
+        </fx:define>
+                <RadioButton fx:id="btn1" toggleGroup="$group" text="Дебетовая" />
+                <RadioButton fx:id="btn2" toggleGroup="$group" text="Кредитная" />
+
+        <TextField fx:id="date" promptText="Введите срок окончания карты"/>
+        <HBox>
+            <Button fx:id="ok" text="OK" onAction="#addCard"/>
+            <Button fx:id="cancel" text="Cancel" onAction="#returnToMain"/>
+        </HBox>
+    </VBox>
+
+</AnchorPane>

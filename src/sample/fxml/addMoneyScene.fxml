@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controllers.AddMoneyController">
+
+    <VBox prefWidth="400" prefHeight="300" >
+
+        <TextField fx:id="addSum" promptText="Введите сумму"  />
+        <HBox>
+            <ComboBox fx:id="chooseSource" promptText="счет зачисления" />
+            <Label fx:id="currency" text="Валюта" />
+            <!--здесь в тексте должна быть переменная с полученной из БД валютой-->
+        </HBox>
+        <HBox alignment="BASELINE_CENTER">
+            <Button fx:id="okButton" text="OK" onAction="#addMoney"/>
+            <Button fx:id="cancelButton" text="Cancel" onAction="#returnToMain"/>
+        </HBox>
+
+    </VBox>
+</AnchorPane>
