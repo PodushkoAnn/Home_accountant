@@ -36,6 +36,11 @@ public class DB {
         return getList(req);
     }
 
+    public static ArrayList<String> getCurrencies() {
+        String req = "Select name from currency";
+        return getList(req);
+    }
+
     private static ArrayList<String> getList(String request){
         ArrayList<String> list = new ArrayList<>();
         try {
@@ -73,6 +78,19 @@ public class DB {
         return getColumnValue(name, "currency", "currency");
     }
 
+    public static Float getAmountByName(String name){
+        String req = String.format("Select amount from source where name = '%s'", name);
+        try {
+            ResultSet result = stmt.executeQuery(req);
+            if(result.next()){
+                return result.getFloat(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String getColumnValue(String name, String columnName, String tableName){
 
         String req = String.format("Select " + columnName + " from source where name = '%s'", name);
@@ -89,19 +107,16 @@ public class DB {
         return null;
     }
 
-    public static void addMoney(float amount, Source source){
-        System.out.println("Добавили денег " + amount + " на " + source.getName());
+    public static void setMoney(float amount, String columnName, String tableName){
+
+        String update = String.format("UPDATE '%s' SET amount='%f' WHERE name='%s'", tableName, amount, columnName);
+        try {
+            stmt.execute(update);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ай-яй-яй, кури БД!");
+        }
+        System.out.println("Денег на: " + columnName + " " + amount);
     }
 
-    public static void spendMoney(float amount, Source source){
-        System.out.println("Сняли денег " + amount + " c " + source.getName());
-    }
-
-    public static void addMoney(float amount){
-        System.out.println("Добавили денег " + amount);
-    }
-
-    public static void spendMoney(float amount){
-        System.out.println("Сняли денег " + amount);
-    }
 }

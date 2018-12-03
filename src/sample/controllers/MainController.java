@@ -6,23 +6,20 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.*;
 import sample.*;
 import sample.money_sources.Source;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 import static sample.Messages.showAlert;
 
 public class MainController {
 
-    private ObservableList<Source> moneySources = FXCollections.observableArrayList(MoneyHandler.getSources());
-    private ObservableList<String> categories = FXCollections.observableArrayList(MoneyHandler.getCategories());
-    private ObservableList<String> sources = FXCollections.observableArrayList(MoneyHandler.getSourcesNames());
+    private ObservableList<Source> moneySources;
+    private ObservableList<String> categories;
+    private ObservableList<String> sources;
 
 
     @FXML
@@ -64,17 +61,14 @@ public class MainController {
 
     @FXML
     private void initialize(){
+        moneySources = FXCollections.observableArrayList(MoneyHandler.getSources());
+        categories = FXCollections.observableArrayList(MoneyHandler.getCategories());
+        sources = FXCollections.observableArrayList(MoneyHandler.getSourcesNames());
 
         source.setItems(sources);
         category.setItems(categories);
         initData();
-
-        moneySource.setCellValueFactory(new PropertyValueFactory<>("name"));
-        amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        type.setCellValueFactory(new PropertyValueFactory<>("type"));
-        currency.setCellValueFactory(new PropertyValueFactory<>("currency"));
-
-        currentBalance.setItems(moneySources);
+        setTable(currentBalance);
 
         //изменить паттерн, чтобы можно было вводить числа с 2 знаками после запятой
         sum.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -85,15 +79,22 @@ public class MainController {
     }
 
     private void initData(){
-    //получает данные по картам/налику из бд
+
         float total = 0;
         for(Source s: MoneyHandler.getSources()){
             total += s.getAmount();
         }
         moneySources.add(new Source("ИТОГО", total));
-//
-//        MenuButton mb = new MenuButton();
+    }
 
+    private void setTable(TableView table){
+
+        moneySource.setCellValueFactory(new PropertyValueFactory<>("name"));
+        amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        type.setCellValueFactory(new PropertyValueFactory<>("type"));
+        currency.setCellValueFactory(new PropertyValueFactory<>("currency"));
+
+        table.setItems(moneySources);
     }
 
     public void spendMoney(ActionEvent actionEvent) {
@@ -104,10 +105,16 @@ public class MainController {
             else if(category.getValue() == null) showAlert(0);
             else {
                 bt.setText("Clicked");
-                DB.spendMoney(Float.parseFloat(str));
+                MoneyHandler.spendMoney(Float.parseFloat(str), source.getValue().toString());
                 sum.clear();
+                refreshTable();
             }
         }
+    }
+
+    public void refreshTable() {
+        moneySources = FXCollections.observableArrayList(MoneyHandler.getSources());
+        currentBalance.setItems(moneySources);
     }
 
     public void handleMenu(ActionEvent actionEvent) {
@@ -133,7 +140,8 @@ public class MainController {
         stage.initModality(Modality.WINDOW_MODAL);
 
         stage.initOwner(gp.getScene().getWindow());
-        stage.show();
+        stage.showAndWait();
+        refreshTable();
     }
 
     private String setSceneName(String menu){
@@ -162,4 +170,5 @@ public class MainController {
         curr.setText(MoneyHandler.getCurrencyBySourceName(sourceName));
         curr.setVisible(true);
     }
+
 }

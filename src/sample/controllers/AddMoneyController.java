@@ -8,8 +8,6 @@ import javafx.stage.Stage;
 import sample.DB;
 import sample.Messages;
 import sample.MoneyHandler;
-import sample.money_sources.Source;
-
 
 public class AddMoneyController {
 
@@ -43,6 +41,7 @@ public class AddMoneyController {
 
     public void returnToMain(ActionEvent actionEvent){
         Stage stage = (Stage) cancelButton.getScene().getWindow();
+
         stage.close();
     }
 
@@ -52,7 +51,7 @@ public class AddMoneyController {
         else if(chooseSource.getValue() == null) Messages.showAlert(4);
         else {
             float amount = Float.parseFloat(addSum.getText());
-            DB.addMoney(amount, new Source(chooseSource.getValue().toString()));
+            MoneyHandler.addMoney(amount, chooseSource.getValue().toString());
             addSum.clear();
             //здесь нужно вывести label что деньги успешно зачислены
         }

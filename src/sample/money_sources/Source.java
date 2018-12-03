@@ -1,5 +1,8 @@
 package sample.money_sources;
 
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Source {
     private int id;
     String type;
@@ -55,4 +58,5 @@ public class Source {
     public void setAmount(float amount) {
         this.amount = amount;
     }
+
 }

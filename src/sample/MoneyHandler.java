@@ -28,16 +28,29 @@ public class MoneyHandler {
     }
 
     public static List<String> getCurrencies(){
-        currencies = new ArrayList<>();
-        currencies.add("RUB");
-        currencies.add("EUR");
-        currencies.add("USD");
-//        System.out.println(currencies.toString());
-        return currencies;
+        return DB.getCurrencies();
     }
 
     public static ArrayList<String> getCategories(){
         return DB.getCategories();
+    }
+//
+//    public static void addMoney(float amount, Source to){
+//        float oldAmount = DB.getAmountByName(to.getName());
+//        float newAmount = oldAmount + amount;
+//        DB.setMoney(newAmount, to.getName(), "source");
+//    }
+
+    public static void addMoney(float amount, String source){
+        float oldAmount = DB.getAmountByName(source);
+        float newAmount = oldAmount + amount;
+        DB.setMoney(newAmount, source, "source");
+    }
+
+    public static void spendMoney(float amount, String source){
+        float oldAmount = DB.getAmountByName(source);
+        float newAmount = oldAmount - amount;
+        DB.setMoney(newAmount, source, "source");
     }
 
     public static void transferMoney(Source from, Source to, float sum) {
