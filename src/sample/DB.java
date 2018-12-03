@@ -49,14 +49,38 @@ public class DB {
         return list;
     }
 
-    public static String getCurrency(String name){
+    public static ArrayList<Source> getSources(){
+        ArrayList<Source> list = new ArrayList<>();
+        String request = "Select name, amount from source";
+        try {
+            ResultSet result = stmt.executeQuery(request);
+            while(result.next()){
+                String name = result.getString(1);
+                float amount = result.getFloat(2);
+                list.add(new Source(name, amount));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
-        String req = String.format("Select currency from source where name = '%s'", name);
+    public static String getTypeByName(String name) {
+        return getColumnValue(name, "type", "source_type");
+    }
+
+    public static String getCurrencyByName(String name){
+        return getColumnValue(name, "currency", "currency");
+    }
+
+    public static String getColumnValue(String name, String columnName, String tableName){
+
+        String req = String.format("Select " + columnName + " from source where name = '%s'", name);
 
         try {
             ResultSet result = stmt.executeQuery(req);
             if(result.next()){
-                return stmt.executeQuery(String.format("Select name from currency where id = '%d'",
+                return stmt.executeQuery(String.format("Select name from " + tableName + " where id = '%d'",
                         result.getInt(1))).getString(1);
             }
         } catch (SQLException e) {
@@ -80,10 +104,4 @@ public class DB {
     public static void spendMoney(float amount){
         System.out.println("Сняли денег " + amount);
     }
-
-
-
-
-
-
 }

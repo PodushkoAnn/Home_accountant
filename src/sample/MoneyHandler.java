@@ -3,6 +3,7 @@ package sample;
 import sample.money_sources.*;
 
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +15,11 @@ public class MoneyHandler {
     static ArrayList<String> categories;
 
     public static List<Source> getSources(){
-        sources = new ArrayList<>();
-        sourceNames = DB.getSourceNames();
-
+        sources = DB.getSources();
+        for(Source s: sources){
+            s.setCurrency(DB.getCurrencyByName(s.getName()));
+            s.setType(DB.getTypeByName(s.getName()));
+        }
         return sources;
     }
 
@@ -42,6 +45,6 @@ public class MoneyHandler {
     }
 
     public static String getCurrencyBySourceName(String name) {
-        return DB.getCurrency(name);
+        return DB.getCurrencyByName(name);
     }
 }

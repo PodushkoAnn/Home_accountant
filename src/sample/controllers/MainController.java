@@ -23,8 +23,7 @@ public class MainController {
     private ObservableList<Source> moneySources = FXCollections.observableArrayList(MoneyHandler.getSources());
     private ObservableList<String> categories = FXCollections.observableArrayList(MoneyHandler.getCategories());
     private ObservableList<String> sources = FXCollections.observableArrayList(MoneyHandler.getSourcesNames());
-//    private ObservableList<String> options = FXCollections.observableArrayList("Пополнить баланс",
-//            "Добавить карту", "Перевести между счетами", "Добавить категорию расходов");
+
 
     @FXML
     private GridPane gp;

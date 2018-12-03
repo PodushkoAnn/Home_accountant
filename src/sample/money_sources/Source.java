@@ -7,6 +7,13 @@ public class Source {
     String currency;
     private float amount;
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
     public Source() {
     }
@@ -20,7 +27,13 @@ public class Source {
     public Source(String name, float amount) {
         this.name = name;
         this.amount = amount;
+    }
 
+    public Source(String name, String type, float amount, String currency) {
+        this.type = type;
+        this.name = name;
+        this.currency = currency;
+        this.amount = amount;
     }
 
     public String getType() {
