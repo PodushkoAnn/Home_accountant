@@ -29,7 +29,7 @@
             </columns>
         </TableView>
 
-        <MenuButton fx:id="mb" text="Меню" >
+        <MenuButton fx:id="mb" text="Дополнительно" >
             <items>
                 <MenuItem text="Пополнить баланс" onAction="#handleMenu"/>
                 <MenuItem text="Добавить карту" onAction="#handleMenu" />

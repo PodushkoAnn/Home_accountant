@@ -1,7 +1,6 @@
 package sample;
 
 import sample.money_sources.*;
-
 import java.sql.*;
 import java.util.*;
 
@@ -10,7 +9,6 @@ public class DB {
     private static Connection connection;
     private static Statement stmt;
     private static PreparedStatement pstmt;
-
 
     public static void connect() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
@@ -117,6 +115,23 @@ public class DB {
             System.out.println("Ай-яй-яй, кури БД!");
         }
         System.out.println("Денег на: " + columnName + " " + amount);
+    }
+
+    public static void addCard(String name, int type, int currency){
+
+        String insert = "INSERT INTO source" + "(type, name, amount, currency) VALUES" + "(?,?,?,?)";
+        try {
+            pstmt = connection.prepareStatement(insert);
+            pstmt.setInt(1, type);
+            pstmt.setString(2, name);
+            pstmt.setFloat(3, 0);
+            pstmt.setInt(4, currency);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ошибка при добавлении карты в бд");
+        }
+
     }
 
 }

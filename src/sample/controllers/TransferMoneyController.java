@@ -42,7 +42,7 @@ public class TransferMoneyController {
         Source fromSource = new Source((String)from.getValue());
         Source toSource = new Source((String)to.getValue());
         float quantity = Float.parseFloat(sum.getText());
-        MoneyHandler.transferMoney(fromSource, toSource, quantity);
+        MoneyHandler.transferMoney(fromSource.getName(), toSource.getName(), quantity);
         sum.clear();
     }
 

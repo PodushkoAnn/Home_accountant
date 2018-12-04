@@ -41,7 +41,6 @@ public class AddMoneyController {
 
     public void returnToMain(ActionEvent actionEvent){
         Stage stage = (Stage) cancelButton.getScene().getWindow();
-
         stage.close();
     }
 

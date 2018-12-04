@@ -21,7 +21,6 @@ public class MainController {
     private ObservableList<String> categories;
     private ObservableList<String> sources;
 
-
     @FXML
     private GridPane gp;
 
@@ -127,7 +126,6 @@ public class MainController {
             openDialog(actionEvent, setSceneName(item));
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Опять косяк в методе");
         }
     }
 

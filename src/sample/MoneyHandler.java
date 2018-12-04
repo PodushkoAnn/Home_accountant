@@ -5,14 +5,12 @@ import sample.money_sources.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MoneyHandler {
 
     static ArrayList<Source> sources;
-    static ArrayList<String> sourceNames;
-    static List<String> currencies;
-    static ArrayList<String> categories;
 
     public static List<Source> getSources(){
         sources = DB.getSources();
@@ -27,19 +25,13 @@ public class MoneyHandler {
         return DB.getSourceNames();
     }
 
-    public static List<String> getCurrencies(){
+    public static ArrayList<String> getCurrencies(){
         return DB.getCurrencies();
     }
 
     public static ArrayList<String> getCategories(){
         return DB.getCategories();
     }
-//
-//    public static void addMoney(float amount, Source to){
-//        float oldAmount = DB.getAmountByName(to.getName());
-//        float newAmount = oldAmount + amount;
-//        DB.setMoney(newAmount, to.getName(), "source");
-//    }
 
     public static void addMoney(float amount, String source){
         float oldAmount = DB.getAmountByName(source);
@@ -53,11 +45,46 @@ public class MoneyHandler {
         DB.setMoney(newAmount, source, "source");
     }
 
-    public static void transferMoney(Source from, Source to, float sum) {
-        System.out.println("Перевели " + sum + " денег с " + from.getName() + " на " + to.getName());
+    public static void transferMoney(String from, String to, float sum) {
+        spendMoney(sum, from);
+        addMoney(sum, to);
+
+        System.out.println("Перевели " + sum + " денег с " + from + " на " + to);
     }
 
     public static String getCurrencyBySourceName(String name) {
         return DB.getCurrencyByName(name);
+    }
+
+    public static void addCard(String name, String type, String currency, String date){
+
+        int cardType = convertTypeToInt(type);
+        int curr = convertCurrencyToInt(currency);
+        if (curr == -1) {
+            System.out.println("Ошибка в преобразовании валюты");
+        } else if(cardType == -1){
+            System.out.println("Ошибка в преобразовании типа карты");
+        } else {
+            DB.addCard(name, cardType, curr);
+            System.out.println("Карта успешно добавлена");
+        }
+    }
+
+    private static int convertCurrencyToInt(String currency) {
+        switch(currency){
+            case "RUB": return 1;
+            case "USD": return 2;
+            case "EUR": return 3;
+        }
+        return -1;
+    }
+
+    private static int convertTypeToInt(String type) {
+        switch(type){
+            case "Наличные": return 1;
+            case "Кредитная": return 2;
+            case "Дебетовая": return 3;
+        }
+        return -1;
     }
 }

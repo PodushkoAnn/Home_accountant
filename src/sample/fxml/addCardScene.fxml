@@ -17,9 +17,11 @@
         <fx:define>
             <ToggleGroup fx:id="group" />
         </fx:define>
-                <RadioButton fx:id="btn1" toggleGroup="$group" text="Дебетовая" />
-                <RadioButton fx:id="btn2" toggleGroup="$group" text="Кредитная" />
+                <RadioButton toggleGroup="$group" text="Дебетовая" />
+                <RadioButton toggleGroup="$group" text="Кредитная" />
+                <RadioButton toggleGroup="$group" text="Наличные" />
 
+        <ComboBox fx:id="currency" promptText="Выберите валюту карты"/>
         <TextField fx:id="date" promptText="Введите срок окончания карты"/>
         <HBox>
             <Button fx:id="ok" text="OK" onAction="#addCard"/>
