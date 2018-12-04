@@ -8,9 +8,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sample.MoneyHandler;
 
-import java.util.Date;
-
-
 public class AddCardController {
 
     @FXML

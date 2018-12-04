@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.MoneyHandler;
+
+import java.lang.management.MonitorInfo;
 
 public class AddCategoryController {
 
@@ -29,6 +32,8 @@ public class AddCategoryController {
 
     public void addCategory(ActionEvent actionEvent) {
         System.out.println("Категория " + addCategory.getText() + " добавлена");
+
+        MoneyHandler.addCategory(addCategory.getText());
         success.setVisible(true);
         addCategory.clear();
     }

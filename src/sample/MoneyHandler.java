@@ -87,4 +87,8 @@ public class MoneyHandler {
         }
         return -1;
     }
+
+    public static void addCategory(String categoryName) {
+        DB.addCategory(categoryName);
+    }
 }

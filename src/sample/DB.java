@@ -131,7 +131,17 @@ public class DB {
             e.printStackTrace();
             System.out.println("Ошибка при добавлении карты в бд");
         }
+    }
 
+    public static void addCategory(String name){
+        String insert = "INSERT INTO category" + "(name) VALUES" + "(?)";
+        try {
+            pstmt = connection.prepareStatement(insert);
+            pstmt.setString(1, name);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

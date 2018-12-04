@@ -114,6 +114,7 @@ public class MainController {
     public void refreshTable() {
         moneySources = FXCollections.observableArrayList(MoneyHandler.getSources());
         currentBalance.setItems(moneySources);
+        initData();
     }
 
     public void handleMenu(ActionEvent actionEvent) {
