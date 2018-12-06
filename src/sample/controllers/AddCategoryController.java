@@ -7,8 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.MoneyHandler;
-
-import java.lang.management.MonitorInfo;
+import static sample.Messages.showAlert;
 
 public class AddCategoryController {
 
@@ -32,9 +31,11 @@ public class AddCategoryController {
 
     public void addCategory(ActionEvent actionEvent) {
         System.out.println("Категория " + addCategory.getText() + " добавлена");
-
-        MoneyHandler.addCategory(addCategory.getText());
-        success.setVisible(true);
-        addCategory.clear();
+        if(addCategory.getText().isEmpty()) showAlert(8);
+        else {
+            MoneyHandler.addCategory(addCategory.getText());
+            success.setVisible(true);
+            addCategory.clear();
+        }
     }
 }

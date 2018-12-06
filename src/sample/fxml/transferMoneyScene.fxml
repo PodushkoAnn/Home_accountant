@@ -6,16 +6,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import sample.MyTextField?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.controllers.TransferMoneyController">
 
     <VBox prefWidth="400" prefHeight="300" alignment="TOP_CENTER">
+        <HBox>
+            <ComboBox fx:id="from" promptText="Выберите счет списания" onAction="#handleChoiseFrom" />
+            <Label fx:id="curr1" visible="false" />
+        </HBox>
+        <HBox>
+            <ComboBox fx:id="to" promptText="Выберите счет зачисления" onAction="#handleChoiseTo" />
+            <Label fx:id="curr2" visible="false" />
+        </HBox>
 
-        <ComboBox fx:id="from" promptText="Выберите счет списания" />
-        <ComboBox fx:id="to" promptText="Выберите счет зачисления" />
 
-        <TextField fx:id="sum" promptText="Введите сумму"  />
+        <MyTextField fx:id="sum" promptText="Введите сумму"  />
 
         <HBox alignment="BASELINE_CENTER">
             <Button fx:id="okButton" text="OK" onAction="#transferMoney"/>

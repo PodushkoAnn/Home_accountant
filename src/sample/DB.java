@@ -144,4 +144,17 @@ public class DB {
         }
     }
 
+    public static int getCurrencyIdByName(String name){
+        String request = String.format("Select id from currency where name = '%s'", name);
+        try {
+            ResultSet result = stmt.executeQuery(request);
+            if(result.next()) {
+                return result.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
 }

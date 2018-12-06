@@ -39,6 +39,21 @@ public class Messages {
                 alert.setContentText("Введите сумму");
                 alert.showAndWait();
                 break;
+            case 6:
+                alert.setTitle("Неверный источник перевода");
+                alert.setContentText("Выберите разные источники списания и зачисления денег");
+                alert.showAndWait();
+                break;
+            case 7:
+                alert.setTitle("Разные валюты");
+                alert.setContentText("Валюта счета списания и зачисления денег должна совпадать");
+                alert.showAndWait();
+                break;
+            case 8:
+                alert.setTitle("Пустое значение");
+                alert.setContentText("Введите имя категории расходов");
+                alert.showAndWait();
+                break;
         }
     }
 }

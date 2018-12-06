@@ -5,9 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import sample.DB;
-import sample.Messages;
-import sample.MoneyHandler;
+import sample.*;
 
 public class AddMoneyController {
 
@@ -24,19 +22,12 @@ public class AddMoneyController {
     private ComboBox chooseSource = new ComboBox();
 
     @FXML
-    private TextField addSum;
+    private MyTextField addSum;
 
     @FXML
     private void initialize(){
-
         chooseSource.setItems(FXCollections.observableArrayList(MoneyHandler.getSourcesNames()));
-
-        //изменить паттерн, чтобы можно было вводить числа с 2 знаками после запятой
-        addSum.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                addSum.setText(oldValue);
-            }
-        });
+        addSum.setCorrectInput();
     }
 
     public void returnToMain(ActionEvent actionEvent){
@@ -45,15 +36,18 @@ public class AddMoneyController {
     }
 
     public void addMoney(ActionEvent actionEvent) {
-
-        if(addSum.getText().isEmpty()) Messages.showAlert(5);
+        String str = addSum.getText();
+        if(str.isEmpty()) Messages.showAlert(5);
         else if(chooseSource.getValue() == null) Messages.showAlert(4);
         else {
-            float amount = Float.parseFloat(addSum.getText());
-            MoneyHandler.addMoney(amount, chooseSource.getValue().toString());
+            MoneyHandler.addMoney(Float.parseFloat(addSum.getCorrectValue(str)), chooseSource.getValue().toString());
             addSum.clear();
             //здесь нужно вывести label что деньги успешно зачислены
         }
+    }
 
+    public void handleChoise(ActionEvent actionEvent) {
+        currency.setText(MoneyHandler.getCurrencyBySourceName(chooseSource.getValue().toString()));
+        currency.setVisible(true);
     }
 }

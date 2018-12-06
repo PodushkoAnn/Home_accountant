@@ -1,7 +1,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-
+<?import sample.MyTextField?>
 
 <GridPane fx:controller="sample.controllers.MainController" fx:id="gp" xmlns:fx="http://javafx.com/fxml" gridLinesVisible="false">
     <padding><Insets top="15" right="15" bottom="20" left="15"/></padding>
@@ -14,7 +14,7 @@
 
         <Label alignment="TOP_LEFT" text="Потратить"/>
         <HBox GridPane.hgrow="ALWAYS" spacing="10">
-            <TextField fx:id="sum" promptText="введите сумму" prefWidth="100" />
+            <MyTextField fx:id="sum" promptText="введите сумму" prefWidth="100" />
             <ComboBox fx:id="source" promptText="счет списания" onAction="#viewChoise"/>
             <Label fx:id="curr" visible="false" prefWidth="50"  />
             <ComboBox fx:id="category" promptText="категория" prefWidth="150" />

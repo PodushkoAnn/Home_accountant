@@ -71,12 +71,8 @@ public class MoneyHandler {
     }
 
     private static int convertCurrencyToInt(String currency) {
-        switch(currency){
-            case "RUB": return 1;
-            case "USD": return 2;
-            case "EUR": return 3;
-        }
-        return -1;
+        System.out.println(DB.getCurrencyIdByName(currency));
+        return DB.getCurrencyIdByName(currency);
     }
 
     private static int convertTypeToInt(String type) {

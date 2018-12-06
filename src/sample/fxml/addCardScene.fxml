@@ -12,6 +12,7 @@
             fx:controller="sample.controllers.AddCardController">
 
     <VBox>
+        <Label alignment="TOP_LEFT" text="Новая карта"/>
         <TextField fx:id="cardName" promptText="Введите имя" />
 
         <fx:define>

@@ -25,7 +25,7 @@ public class MainController {
     private GridPane gp;
 
     @FXML
-    private TextField sum;
+    private MyTextField sum;
 
     @FXML
     private ComboBox source = new ComboBox();
@@ -60,21 +60,12 @@ public class MainController {
 
     @FXML
     private void initialize(){
-        moneySources = FXCollections.observableArrayList(MoneyHandler.getSources());
-        categories = FXCollections.observableArrayList(MoneyHandler.getCategories());
-        sources = FXCollections.observableArrayList(MoneyHandler.getSourcesNames());
 
-        source.setItems(sources);
-        category.setItems(categories);
+        refreshLists();
         initData();
         setTable(currentBalance);
 
-        //изменить паттерн, чтобы можно было вводить числа с 2 знаками после запятой
-        sum.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                sum.setText(oldValue);
-            }
-        });
+        sum.setCorrectInput();
     }
 
     private void initData(){
@@ -97,17 +88,16 @@ public class MainController {
     }
 
     public void spendMoney(ActionEvent actionEvent) {
-        // нужно добавить условия выпадающих списков и в зависимости от этого источник списания денег
-        if(!sum.getText().isEmpty()) {
-            String str = sum.getText();
-            if (!Check.isCorrect(str)) showAlert(1);
-            else if(category.getValue() == null) showAlert(0);
+        String str = sum.getText();
+        if(!str.isEmpty()) {
+            if(category.getValue() == null) showAlert(0);
             else {
-                bt.setText("Clicked");
-                MoneyHandler.spendMoney(Float.parseFloat(str), source.getValue().toString());
+                MoneyHandler.spendMoney(Float.parseFloat(sum.getCorrectValue(str)), source.getValue().toString());
                 sum.clear();
                 refreshTable();
             }
+        } else {
+            showAlert(5);
         }
     }
 
@@ -141,6 +131,15 @@ public class MainController {
         stage.initOwner(gp.getScene().getWindow());
         stage.showAndWait();
         refreshTable();
+        refreshLists();
+    }
+
+    private void refreshLists() {
+        moneySources = FXCollections.observableArrayList(MoneyHandler.getSources());
+        categories = FXCollections.observableArrayList(MoneyHandler.getCategories());
+        sources = FXCollections.observableArrayList(MoneyHandler.getSourcesNames());
+        source.setItems(sources);
+        category.setItems(categories);
     }
 
     private String setSceneName(String menu){
@@ -162,7 +161,6 @@ public class MainController {
         }
         return null;
     }
-
 
     public void viewChoise(ActionEvent actionEvent) {
         String sourceName = (String) source.getValue();

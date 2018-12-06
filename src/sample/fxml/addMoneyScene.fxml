@@ -3,15 +3,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
+<?import sample.MyTextField?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.controllers.AddMoneyController">
 
     <VBox prefWidth="400" prefHeight="300" >
 
-        <TextField fx:id="addSum" promptText="Введите сумму"  />
+        <MyTextField fx:id="addSum" promptText="Введите сумму"  />
         <HBox>
-            <ComboBox fx:id="chooseSource" promptText="счет зачисления" />
-            <Label fx:id="currency" text="Валюта" />
+            <ComboBox fx:id="chooseSource" promptText="счет зачисления" onAction="#handleChoise"/>
+            <Label fx:id="currency" text="Валюта" visible="false" />
             <!--здесь в тексте должна быть переменная с полученной из БД валютой-->
         </HBox>
         <HBox alignment="BASELINE_CENTER">
