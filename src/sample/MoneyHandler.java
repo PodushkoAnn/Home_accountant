@@ -1,11 +1,8 @@
 package sample;
 
 import sample.money_sources.*;
-
-
-import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MoneyHandler {
@@ -45,10 +42,16 @@ public class MoneyHandler {
         DB.setMoney(newAmount, source, "source");
     }
 
+    public static void addExpence(float amount, String source, String category){
+
+        System.out.println("Потратили " + amount + " " + source + " " + category);
+        spendMoney(amount, source);
+        DB.addExpence(amount, convertCategoryToInt(category), LocalDate.now(), getSourceId(source) , convertCurrencyToInt(getCurrencyBySourceName(source)));
+    }
+
     public static void transferMoney(String from, String to, float sum) {
         spendMoney(sum, from);
         addMoney(sum, to);
-
         System.out.println("Перевели " + sum + " денег с " + from + " на " + to);
     }
 
@@ -70,9 +73,9 @@ public class MoneyHandler {
         }
     }
 
-    private static int convertCurrencyToInt(String currency) {
-        System.out.println(DB.getCurrencyIdByName(currency));
-        return DB.getCurrencyIdByName(currency);
+    private static int convertCurrencyToInt(String name) {
+//        System.out.println(DB.getIdByName(name,"currency"));
+        return DB.getIdByName(name,"currency");
     }
 
     private static int convertTypeToInt(String type) {
@@ -82,6 +85,14 @@ public class MoneyHandler {
             case "Дебетовая": return 3;
         }
         return -1;
+    }
+
+    private static int convertCategoryToInt(String name){
+        return DB.getIdByName(name, "category");
+    }
+
+    private static int getSourceId(String name){
+        return DB.getIdByName(name, "source");
     }
 
     public static void addCategory(String categoryName) {

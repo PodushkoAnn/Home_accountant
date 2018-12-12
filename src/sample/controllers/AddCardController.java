@@ -1,5 +1,7 @@
 package sample.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sample.MoneyHandler;
+
+import java.time.LocalDate;
 
 public class AddCardController {
 
@@ -23,7 +27,7 @@ public class AddCardController {
     ComboBox currency;
 
     @FXML
-    TextField date;
+    DatePicker date;
 
     @FXML
     private ToggleGroup group;
@@ -39,14 +43,33 @@ public class AddCardController {
     public void addCard(ActionEvent actionEvent) {
 
         String name = cardName.getText();
-        String expiredDate = date.getText();
+        LocalDate expiredDate = date.getValue();
         String curr = (String)currency.getValue();
         RadioButton btn = (RadioButton) group.getSelectedToggle();
-        String type = btn.getText();
-        MoneyHandler.addCard(name, type, curr, expiredDate);
-        cardName.clear();
-        date.clear();
-        System.out.println("Карта " + name + " годна до " + expiredDate + ", тип " + type + " валюта " + curr + " добавлена");
+
+        date.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+                System.out.println("ChangedValue" + date.getEditor().getText());
+            }
+        });
+
+        LocalDate d = date.getValue();
+        System.out.println(d);
+
+//        if(name.isEmpty()) System.out.println("Введите имя карты");
+//        else if(currency.getValue() == null) System.out.println("Выберите валюту");
+//        else if(!group.getSelectedToggle().isSelected()) System.out.println("Выберите тип карты");
+//        else if(expiredDate == null) System.out.println("Введите дату");
+//        else {
+//            String type = btn.getText();
+//            MoneyHandler.addCard(name, type, curr, expiredDate.toString());
+//            cardName.clear();
+////        date.clear();
+//            System.out.println("Карта " + name + " годна до " + expiredDate + ", тип " + type + " валюта " + curr + " добавлена");
+//        }
+
     }
 
     public void returnToMain(ActionEvent actionEvent) {

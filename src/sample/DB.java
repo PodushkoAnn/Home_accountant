@@ -2,6 +2,8 @@ package sample;
 
 import sample.money_sources.*;
 import java.sql.*;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 public class DB {
@@ -144,8 +146,8 @@ public class DB {
         }
     }
 
-    public static int getCurrencyIdByName(String name){
-        String request = String.format("Select id from currency where name = '%s'", name);
+    public static int getIdByName(String name, String table){
+        String request = String.format("Select id from '%s' where name = '%s'", table, name);
         try {
             ResultSet result = stmt.executeQuery(request);
             if(result.next()) {
@@ -155,6 +157,22 @@ public class DB {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public static void addExpence(float amount, int category, LocalDate date, int source, int currency){
+        String insert = "INSERT INTO expence" + "(amount, category, date, source, currency) VALUES" + "(?,?,?,?,?)";
+        try {
+            pstmt = connection.prepareStatement(insert);
+            pstmt.setFloat(1, amount);
+            pstmt.setInt(2, category);
+            pstmt.setDate(3, Date.valueOf(date));
+            pstmt.setInt(4, source);
+            pstmt.setInt(5, currency);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ошибка при списании средств");
+        }
     }
 
 }

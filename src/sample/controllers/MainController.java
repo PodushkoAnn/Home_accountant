@@ -60,21 +60,18 @@ public class MainController {
 
     @FXML
     private void initialize(){
-
         refreshLists();
         initData();
         setTable(currentBalance);
-
         sum.setCorrectInput();
     }
 
     private void initData(){
-
         float total = 0;
         for(Source s: MoneyHandler.getSources()){
             total += s.getAmount();
         }
-        moneySources.add(new Source("ИТОГО", total));
+//        moneySources.add(new Source("ИТОГО", total));
     }
 
     private void setTable(TableView table){
@@ -92,7 +89,8 @@ public class MainController {
         if(!str.isEmpty()) {
             if(category.getValue() == null) showAlert(0);
             else {
-                MoneyHandler.spendMoney(Float.parseFloat(sum.getCorrectValue(str)), source.getValue().toString());
+
+                MoneyHandler.addExpence(Float.parseFloat(sum.getCorrectValue(str)), source.getValue().toString(), category.getValue().toString());
                 sum.clear();
                 refreshTable();
             }

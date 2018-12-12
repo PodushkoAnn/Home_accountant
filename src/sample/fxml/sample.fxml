@@ -16,11 +16,11 @@
         <HBox GridPane.hgrow="ALWAYS" spacing="10">
             <MyTextField fx:id="sum" promptText="введите сумму" prefWidth="100" />
             <ComboBox fx:id="source" promptText="счет списания" onAction="#viewChoise"/>
-            <Label fx:id="curr" visible="false" prefWidth="50"  />
+            <Label fx:id="curr" visible="false"  />
             <ComboBox fx:id="category" promptText="категория" prefWidth="150" />
             <Button fx:id="bt" onAction="#spendMoney" text="OK"/>
         </HBox>
-        <TableView fx:id="currentBalance" prefHeight="200" GridPane.vgrow="ALWAYS">
+        <TableView fx:id="currentBalance" GridPane.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="moneySource" prefWidth="200" sortable="false" text="source: "/>
                 <TableColumn fx:id="amount" prefWidth="100" sortable="false" text="amount "/>

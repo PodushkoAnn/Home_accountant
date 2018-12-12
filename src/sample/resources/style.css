@@ -1,0 +1,13 @@
+.root {
+    -fx-background-color: oldlace;
+}
+
+#curr {
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-text-fill: navy;
+    /*-fx-background-color: yellow;*/
+    -fx-max-width: 50;
+    -fx-min-width: 50;
+    -fx-max-height: 30;
+}
