@@ -3,7 +3,9 @@ package sample;
 import sample.money_sources.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MoneyHandler {
 
@@ -46,7 +48,8 @@ public class MoneyHandler {
 
         System.out.println("Потратили " + amount + " " + source + " " + category);
         spendMoney(amount, source);
-        DB.addExpence(amount, convertCategoryToInt(category), LocalDate.now(), getSourceId(source) , convertCurrencyToInt(getCurrencyBySourceName(source)));
+        DB.addExpence(amount, convertCategoryToInt(category), LocalDate.now(), getSourceId(source) ,
+                convertCurrencyToInt(getCurrencyBySourceName(source)));
     }
 
     public static void transferMoney(String from, String to, float sum) {
@@ -73,6 +76,17 @@ public class MoneyHandler {
         }
     }
 
+    public static HashMap<String, Float> getExpencesBySelectedCurrency(String currency){
+        int currencyId = convertCurrencyToInt(currency);
+        HashMap<Integer, Float> expences = DB.getExpence(currencyId);
+        HashMap<String, Float> chart = new HashMap<>();
+        for(Map.Entry<Integer, Float> entry : expences.entrySet()){
+            System.out.println("ключ: " + entry.getKey() + ", значение " + entry.getValue());
+            chart.put(getCategoryById(entry.getKey()), entry.getValue());
+        }
+        return chart;
+    }
+
     private static int convertCurrencyToInt(String name) {
 //        System.out.println(DB.getIdByName(name,"currency"));
         return DB.getIdByName(name,"currency");
@@ -97,5 +111,10 @@ public class MoneyHandler {
 
     public static void addCategory(String categoryName) {
         DB.addCategory(categoryName);
+    }
+
+    private static String getCategoryById(int id){
+        String name = DB.getCategoryById(id);
+        return name;
     }
 }

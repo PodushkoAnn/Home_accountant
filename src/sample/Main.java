@@ -30,7 +30,7 @@ public class Main extends Application {
         ps = primaryStage;
         ps.setTitle("Home accountant");
 
-        ps.setScene(new Scene(root, 550, 400));
+        ps.setScene(new Scene(root, 550, 600));
         ps.getScene().getStylesheets().add("sample/resources/style.css");
 
         ps.show();

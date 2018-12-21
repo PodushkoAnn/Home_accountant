@@ -41,6 +41,20 @@ public class DB {
         return getList(req);
     }
 
+    public static String getCategoryById(int id){
+        String req = String.format("Select name from category where id = '%d'", id);
+        ResultSet result = null;
+        try {
+            result = stmt.executeQuery(req);
+            if(result.next()){
+                return result.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private static ArrayList<String> getList(String request){
         ArrayList<String> list = new ArrayList<>();
         try {
@@ -173,6 +187,22 @@ public class DB {
             e.printStackTrace();
             System.out.println("Ошибка при списании средств");
         }
+    }
+
+    public static HashMap<Integer, Float> getExpence(int currency){
+        HashMap<Integer, Float> map = new HashMap<>();
+        String request = String.format("Select category, amount from expence WHERE currency='%d' GROUP BY category ", currency);
+        try {
+            ResultSet result = stmt.executeQuery(request);
+            while(result.next()){
+                int category = result.getInt(1);
+                float amount = result.getFloat(2);
+                map.put(category, amount);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return map;
     }
 
 }

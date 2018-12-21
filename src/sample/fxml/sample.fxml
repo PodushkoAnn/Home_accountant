@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import sample.MyTextField?>
 
+<?import javafx.scene.chart.PieChart?>
 <GridPane fx:controller="sample.controllers.MainController" fx:id="gp" xmlns:fx="http://javafx.com/fxml" gridLinesVisible="false">
     <padding><Insets top="15" right="15" bottom="20" left="15"/></padding>
     <children>
@@ -20,6 +21,7 @@
             <ComboBox fx:id="category" promptText="категория" prefWidth="150" />
             <Button fx:id="bt" onAction="#spendMoney" text="OK"/>
         </HBox>
+
         <TableView fx:id="currentBalance" GridPane.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="moneySource" prefWidth="200" sortable="false" text="source: "/>
@@ -28,6 +30,9 @@
                 <TableColumn fx:id="currency"  sortable="false" text="currency "/>
             </columns>
         </TableView>
+
+        <ComboBox fx:id="pieChartCurrency" onAction="#setChart" />
+        <PieChart fx:id="pie" />
 
         <MenuButton fx:id="mb" text="Дополнительно" >
             <items>

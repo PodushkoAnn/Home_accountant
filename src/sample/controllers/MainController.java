@@ -4,6 +4,7 @@ import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.*;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
@@ -11,6 +12,8 @@ import javafx.stage.*;
 import sample.*;
 import sample.money_sources.Source;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 import static sample.Messages.showAlert;
@@ -20,6 +23,7 @@ public class MainController {
     private ObservableList<Source> moneySources;
     private ObservableList<String> categories;
     private ObservableList<String> sources;
+    private ObservableList<String> pieChartList;
 
     @FXML
     private GridPane gp;
@@ -32,6 +36,9 @@ public class MainController {
 
     @FXML
     private ComboBox category = new ComboBox();
+
+    @FXML
+    private ComboBox pieChartCurrency = new ComboBox();
 
     @FXML
     private Button bt;
@@ -57,13 +64,19 @@ public class MainController {
     @FXML
     private MenuButton mb;
 
+    @FXML
+    private PieChart pie;
+
 
     @FXML
     private void initialize(){
         refreshLists();
+        pieChartCurrency.setValue("RUB");
         initData();
         setTable(currentBalance);
+        setChart();
         sum.setCorrectInput();
+
     }
 
     private void initData(){
@@ -84,15 +97,26 @@ public class MainController {
         table.setItems(moneySources);
     }
 
+    public void setChart(){
+
+        HashMap<String, Float> chart = MoneyHandler.getExpencesBySelectedCurrency((String)pieChartCurrency.getValue());
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        for(Map.Entry<String, Float> entry : chart.entrySet()){
+            pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+        }
+//        pie.setTitle("В текущем месяце");
+        pie.setData(pieChartData);
+    }
+
     public void spendMoney(ActionEvent actionEvent) {
         String str = sum.getText();
         if(!str.isEmpty()) {
             if(category.getValue() == null) showAlert(0);
             else {
-
                 MoneyHandler.addExpence(Float.parseFloat(sum.getCorrectValue(str)), source.getValue().toString(), category.getValue().toString());
                 sum.clear();
                 refreshTable();
+                setChart();
             }
         } else {
             showAlert(5);
@@ -136,8 +160,10 @@ public class MainController {
         moneySources = FXCollections.observableArrayList(MoneyHandler.getSources());
         categories = FXCollections.observableArrayList(MoneyHandler.getCategories());
         sources = FXCollections.observableArrayList(MoneyHandler.getSourcesNames());
+        pieChartList = FXCollections.observableArrayList(MoneyHandler.getCurrencies());
         source.setItems(sources);
         category.setItems(categories);
+        pieChartCurrency.setItems(pieChartList);
     }
 
     private String setSceneName(String menu){
