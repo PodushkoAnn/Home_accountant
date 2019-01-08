@@ -82,6 +82,7 @@ public class MainController {
     private void initData(){
         float total = 0;
         for(Source s: MoneyHandler.getSources()){
+
             total += s.getAmount();
         }
 //        moneySources.add(new Source("ИТОГО", total));
@@ -132,8 +133,8 @@ public class MainController {
     public void handleMenu(ActionEvent actionEvent) {
 
         String item = ((MenuItem)actionEvent.getSource()).getText();
-        System.out.println("меню кликнули на " + item);
-        System.out.println(setSceneName(item));
+//        System.out.println("меню кликнули на " + item);
+//        System.out.println(setSceneName(item));
 
         try {
             openDialog(actionEvent, setSceneName(item));

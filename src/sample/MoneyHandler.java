@@ -81,7 +81,7 @@ public class MoneyHandler {
         HashMap<Integer, Float> expences = DB.getExpence(currencyId);
         HashMap<String, Float> chart = new HashMap<>();
         for(Map.Entry<Integer, Float> entry : expences.entrySet()){
-            System.out.println("ключ: " + entry.getKey() + ", значение " + entry.getValue());
+//            System.out.println("ключ: " + entry.getKey() + ", значение " + entry.getValue());
             chart.put(getCategoryById(entry.getKey()), entry.getValue());
         }
         return chart;

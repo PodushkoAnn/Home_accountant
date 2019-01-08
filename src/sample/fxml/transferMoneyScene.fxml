@@ -13,7 +13,7 @@
 
     <VBox prefWidth="400" prefHeight="300" alignment="TOP_CENTER">
         <HBox>
-            <ComboBox fx:id="from" promptText="Выберите счет списания" onAction="#handleChoiseFrom" />
+            <ComboBox fx:id="from" promptText="Выберите счет списания" onAction="#handleChoiceFrom" />
             <Label fx:id="curr1" visible="false" />
         </HBox>
         <HBox>
@@ -24,10 +24,14 @@
 
         <MyTextField fx:id="sum" promptText="Введите сумму"  />
 
+        <Label fx:id="rates" visible="false"/>
+
         <HBox alignment="BASELINE_CENTER">
             <Button fx:id="okButton" text="OK" onAction="#transferMoney"/>
             <Button fx:id="cancelButton" text="Cancel" onAction="#returnToMain"/>
         </HBox>
+
+        <Button fx:id="refresh" text="Refresh Rates" onAction="#refreshRates"/>
 
     </VBox>
 
