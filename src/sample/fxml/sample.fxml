@@ -2,14 +2,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import sample.MyTextField?>
-
 <?import javafx.scene.chart.PieChart?>
+
 <GridPane fx:controller="sample.controllers.MainController" fx:id="gp" xmlns:fx="http://javafx.com/fxml" gridLinesVisible="false">
     <padding><Insets top="15" right="15" bottom="20" left="15"/></padding>
     <children>
     <VBox GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" spacing="10" >
         <HBox alignment="TOP_CENTER">
-            <Label text="Welcome, username"/>
+            <Label text="Welcome to the home accountant"/>
 
         </HBox>
 

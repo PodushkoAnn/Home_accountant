@@ -34,7 +34,7 @@ public class Rates {
         }
     }
 
-    private static String getTodayDate() throws ParseException {
+    public static String getTodayDate() throws ParseException {
         String s = LocalDate.now().toString();
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dt.parse(s);
