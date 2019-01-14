@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.*;
 import sample.*;
+import sample.handlers.MoneyHandler;
 import sample.money_sources.Source;
 import java.io.IOException;
 import java.util.HashMap;

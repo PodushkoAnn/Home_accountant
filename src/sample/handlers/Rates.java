@@ -1,4 +1,4 @@
-package sample;
+package sample.handlers;
 
 import java.io.*;
 import java.net.URL;

@@ -1,4 +1,4 @@
-package sample;
+package sample.handlers;
 
 import sample.money_sources.*;
 import java.time.LocalDate;

@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.stage.Stage;
+import sample.handlers.DB;
+
 import java.sql.SQLException;
 import static sample.Messages.showAlert;
 

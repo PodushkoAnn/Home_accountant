@@ -7,14 +7,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.xml.sax.SAXException;
-import sample.ExchangeRate;
-import sample.MoneyHandler;
+import sample.handlers.ExchangeRate;
+import sample.handlers.MoneyHandler;
 import sample.MyTextField;
-import sample.Rates;
-import sample.money_sources.Source;
+import sample.handlers.Rates;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -22,9 +20,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 
 import static sample.Messages.showAlert;
 
@@ -99,13 +95,19 @@ public class TransferMoneyController {
     public void handleChoiceFrom(ActionEvent actionEvent) {
         curr1.setText(MoneyHandler.getCurrencyBySourceName(from.getValue().toString()));
         curr1.setVisible(true);
-        if (curr2.isVisible() && !curr2.getText().equals(curr1.getText())) showRate(curr1.getText(), curr2.getText());
+        if (curr2.isVisible() && !curr2.getText().equals(curr1.getText())) {
+            showRate(curr1.getText(), curr2.getText());
+            refresh.setVisible(true);
+        }
     }
 
     public void handleChoiseTo(ActionEvent actionEvent) {
         curr2.setText(MoneyHandler.getCurrencyBySourceName(to.getValue().toString()));
         curr2.setVisible(true);
-        if (curr1.isVisible() && !curr1.getText().equals(curr2.getText())) showRate(curr1.getText(), curr2.getText());
+        if (curr1.isVisible() && !curr1.getText().equals(curr2.getText())) {
+            showRate(curr1.getText(), curr2.getText());
+            refresh.setVisible(true);
+        }
     }
 
     public void refreshRates(ActionEvent actionEvent){
@@ -117,7 +119,7 @@ public class TransferMoneyController {
         }
     }
 
-    public void showRate(String from, String to){
+    private void showRate(String from, String to){
         try {
             rates.setText("Курс валюты " + ExchangeRate.getRateFromFile(from, to) + " на дату " + readDateFromFile());
             rates.setVisible(true);

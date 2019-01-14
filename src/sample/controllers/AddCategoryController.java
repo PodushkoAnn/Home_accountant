@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.MoneyHandler;
+import sample.handlers.MoneyHandler;
 import static sample.Messages.showAlert;
 
 public class AddCategoryController {

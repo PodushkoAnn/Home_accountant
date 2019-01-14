@@ -27,7 +27,7 @@
             <Button fx:id="cancelButton" text="Cancel" onAction="#returnToMain"/>
         </HBox>
 
-        <Button fx:id="refresh" text="Refresh Rates" onAction="#refreshRates"/>
+        <Button fx:id="refresh" text="Refresh Rates" onAction="#refreshRates" visible="false"/>
 
     </VBox>
 
